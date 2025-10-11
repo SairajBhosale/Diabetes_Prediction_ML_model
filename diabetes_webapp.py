@@ -41,16 +41,12 @@ class Logistic_Regression():
 try:
     # This relative path works everywhere, including on Streamlit Cloud
     loaded_model = pickle.load(open("trained_model.sav", "rb"))
-    scaler = pickle.load(open("scaler.pkl", "rb"))
-except FileNotFoundError:
-    st.error("Model or scaler files not found. Please run the training script first to generate these files.")
-    st.stop()
     
 import pickle
 
 # After training your model
 pickle.dump(loaded_model, open('trained_model.pkl', 'wb'))
-pickle.dump(scaler, open('scaler.pkl', 'wb'))
+
 
 
 # Prediction function
@@ -132,5 +128,6 @@ def main():
 # This makes the script runnable
 if __name__ == "__main__":
     main()
+
 
 
