@@ -35,7 +35,7 @@ class Logistic_Regression():
 # 1. Load Data
 try:
     # Make sure the CSV file is named correctly and is in the same folder
-    dataset = pd.read_csv("diabetes.csv") # Make sure your CSV is named this or change it
+    dataset = pd.read_csv("C:\Users\Sairaj\Downloads\diabetes (1).csv") # Make sure your CSV is named this or change it
 except FileNotFoundError:
     print("Error: 'diabetes.csv' not found. Please check the file name and path.")
     exit()
@@ -60,5 +60,6 @@ model.fit(X_train, Y_train)
 # 6. Save the Model AND the Scaler
 pickle.dump(model, open("trained_model.sav", "wb"))
 pickle.dump(scaler, open("scaler.pkl", "wb"))
+
 
 print("Success: 'trained_model.sav' and 'scaler.pkl' have been created.")
