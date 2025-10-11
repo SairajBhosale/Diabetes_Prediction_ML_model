@@ -1,15 +1,8 @@
-
-
-
-# ai code
-
 import streamlit as st
 import numpy as np
 import pickle
 
 # IMPORTANT: The custom class definition must be here for pickle to load the model
-
-
 class Logistic_Regression():
     def __init__(self, learning_rate, no_of_iterations):
         self.learning_rate = learning_rate
@@ -36,51 +29,30 @@ class Logistic_Regression():
         Y_pred = np.where(Y_pred > 0.5, 1, 0)
         return Y_pred
 
-
-# Load the saved model and the scaler
-loaded_model = pickle.load(open("trained_model.sav", "rb"))
-scaler = loaded_model
-    
-import pickle
-
-# After training your model
-pickle.dump(loaded_model, open('trained_model.pkl', 'wb'))
-
-
+# Load ONLY the saved model
+try:
+    loaded_model = pickle.load(open("trained_model.sav", "rb"))
+except FileNotFoundError:
+    st.error("Model file not found. Please run the 'train_model_unscaled.py' script first.")
+    st.stop()
 
 # Prediction function
 def diabetes_prediction(input_data):
-    """
-    Takes user input, scales it using the pre-fitted scaler,
-    and returns the model's prediction.
-    """
-    # Change the input_data to a numpy array
     input_data_as_numpy_array = np.asarray(input_data)
-
-    # Reshape the array as we are predicting for one instance
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
-    # **CRITICAL STEP**: Standardize the reshaped data using the loaded scaler
-    std_data = scaler.transform(input_data_reshaped)
-
-    # Make the prediction
-    prediction = loaded_model.predict(std_data)
+    # --- SCALING STEP HAS BEEN REMOVED ---
+    # The prediction is now made on the raw, reshaped data
+    prediction = loaded_model.predict(input_data_reshaped)
 
     if prediction[0] == 0:
         return "The person is NOT diabetic"
     else:
         return "The person IS diabetic"
 
-
 # Main function for the Streamlit UI
 def main():
-    """
-    Defines the Streamlit user interface and handles user interaction.
-    """
-    # Giving a title
     st.title("Diabetes Prediction ML Model")
-
-    # Getting the input data from the user in columns for a better layout
     col1, col2 = st.columns(2)
 
     with col1:
@@ -88,45 +60,29 @@ def main():
         Glucose = st.text_input("Glucose Level")
         BloodPressure = st.text_input("Blood Pressure value")
         SkinThickness = st.text_input("Skin Thickness value")
-
     with col2:
         Insulin = st.text_input("Insulin Level")
         BMI = st.text_input("BMI value")
-        DiabetesPedigreeFunction = st.text_input(
-            "Diabetes Pedigree Function value")
+        DiabetesPedigreeFunction = st.text_input("Diabetes Pedigree Function value")
         Age = st.text_input("Age of the Person")
 
-    # Creating a button for prediction
     if st.button('Diabetes Test Result'):
-        # The prediction logic should be inside the button's "if" block
         try:
-            # Convert all text inputs to floating-point numbers
             input_data_as_float = [
-                float(Pregnancies),
-                float(Glucose),
-                float(BloodPressure),
-                float(SkinThickness),
-                float(Insulin),
-                float(BMI),
-                float(DiabetesPedigreeFunction),
-                float(Age)
+                float(Pregnancies), float(Glucose), float(BloodPressure),
+                float(SkinThickness), float(Insulin), float(BMI),
+                float(DiabetesPedigreeFunction), float(Age)
             ]
-
-            # Call the prediction function with the list of numbers
             diagnosis = diabetes_prediction(input_data_as_float)
             st.success(diagnosis)
-
         except ValueError:
-            # If conversion to float fails (e.g., user enters 'abc' or leaves a field empty)
             st.error("Error: Please enter valid numbers for all fields.")
         except Exception as e:
-            # Catch any other potential errors
             st.error(f"An error occurred during prediction: {e}")
 
-
-# This makes the script runnable
 if __name__ == "__main__":
     main()
+
 
 
 
