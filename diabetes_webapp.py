@@ -38,9 +38,7 @@ class Logistic_Regression():
 
 
 # Load the saved model and the scaler
-try:
-    # This relative path works everywhere, including on Streamlit Cloud
-    loaded_model = pickle.load(open("trained_model.sav", "rb"))
+loaded_model = pickle.load(open("trained_model.sav", "rb"))
     
 import pickle
 
@@ -128,6 +126,7 @@ def main():
 # This makes the script runnable
 if __name__ == "__main__":
     main()
+
 
 
 
