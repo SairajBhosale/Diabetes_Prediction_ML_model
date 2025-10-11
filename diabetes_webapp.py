@@ -39,6 +39,7 @@ class Logistic_Regression():
 
 # Load the saved model and the scaler
 loaded_model = pickle.load(open("trained_model.sav", "rb"))
+scaler = loaded_model
     
 import pickle
 
@@ -60,7 +61,7 @@ def diabetes_prediction(input_data):
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
     # **CRITICAL STEP**: Standardize the reshaped data using the loaded scaler
-    std_data = np.transform(input_data_reshaped)
+    std_data = scaler.transform(input_data_reshaped)
 
     # Make the prediction
     prediction = loaded_model.predict(std_data)
@@ -126,6 +127,7 @@ def main():
 # This makes the script runnable
 if __name__ == "__main__":
     main()
+
 
 
 
