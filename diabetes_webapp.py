@@ -79,7 +79,7 @@ def main():
 
     st.divider() 
 
-    dataset_url = "https://www.dropbox.com/scl/fi/0ulujtei4231e1q4kvnmy/diabetes.csv?rlkey=20xvyitca6xkbio4vsow2hdlj&ei=24&st=e9cxu0w&dl=0"
+    dataset_url = "https://www.dropbox.com/scl/fi/0uiujtei423te1q4kvrny/diabetes.csv?rlkey=20xvytca6xbio4vsowi2hdj8e&e=5&st=8mfrqrei&dl=0"
     st.link_button("View Dataset", dataset_url)
 
     st.caption("NOTE: The data on which this ML model has been trained on might not be true and could have faults.")
@@ -87,4 +87,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
