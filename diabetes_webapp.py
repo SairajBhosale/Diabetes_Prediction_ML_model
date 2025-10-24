@@ -80,12 +80,12 @@ def main():
         except Exception as e:
             st.error(f"An error occurred during prediction: {e}")
 
-
 st.text("NOTE : The data on which this ML model has been trained on might not be true and could have faults")
-st.text("Link of the dataset : https://www.dropbox.com/scl/fi/0uiujtei423te1q4kvrny/diabetes.csv?rlkey=20xvytca6xbio4vsowi2hdj8e&e=2&st=e9cxl0w0&dl=0")
+st.button("Link of the dataset : https://www.dropbox.com/scl/fi/0uiujtei423te1q4kvrny/diabetes.csv?rlkey=20xvytca6xbio4vsowi2hdj8e&e=2&st=e9cxl0w0&dl=0")
 
 if __name__ == "__main__":
     main()
+
 
 
 
