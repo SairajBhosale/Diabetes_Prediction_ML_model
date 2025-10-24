@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 import pickle
 
-# IMPORTANT: The custom class definition must be here for pickle to load the model
 class Logistic_Regression():
     def __init__(self, learning_rate, no_of_iterations):
         self.learning_rate = learning_rate
@@ -41,8 +40,6 @@ def diabetes_prediction(input_data):
     input_data_as_numpy_array = np.asarray(input_data)
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
-    # --- SCALING STEP HAS BEEN REMOVED ---
-    # The prediction is now made on the raw, reshaped data
     prediction = loaded_model.predict(input_data_reshaped)
 
     if prediction[0] == 0:
@@ -80,9 +77,7 @@ def main():
         except Exception as e:
             st.error(f"An error occurred during prediction: {e}")
 
-    # --- MOVED THESE LINES INSIDE THE MAIN() FUNCTION ---
-    
-    st.divider() # Adds a horizontal line
+    st.divider() 
 
     dataset_url = "https://www.dropbox.com/scl/fi/0ulujtei4231e1q4kvnmy/diabetes.csv?rlkey=20xvyitca6xkbio4vsow2hdlj&ei=24&st=e9cxu0w&dl=0"
     st.link_button("View Dataset", dataset_url)
@@ -92,3 +87,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
