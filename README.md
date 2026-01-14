@@ -31,3 +31,4 @@ Unlike standard projects that strictly use libraries, this project implements **
 * **Key Methods**: `fit()` (training loop) and `predict()` (inference).
 
 ## Project Link
+https://diabetespredictionmlmodel-ddbgk7xgms4xoqnidgsreh.streamlit.app/
